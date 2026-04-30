@@ -9,51 +9,214 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as SiteRouteImport } from './routes/_site'
+import { Route as SiteIndexRouteImport } from './routes/_site.index'
+import { Route as SiteTeamRouteImport } from './routes/_site.team'
+import { Route as SiteReviewsRouteImport } from './routes/_site.reviews'
+import { Route as SiteGalleryRouteImport } from './routes/_site.gallery'
+import { Route as SiteEducationRouteImport } from './routes/_site.education'
+import { Route as SiteAdventureRouteImport } from './routes/_site.adventure'
+import { Route as SiteAboutRouteImport } from './routes/_site.about'
 
-const IndexRoute = IndexRouteImport.update({
+const SiteRoute = SiteRouteImport.update({
+  id: '/_site',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteIndexRoute = SiteIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteTeamRoute = SiteTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteReviewsRoute = SiteReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteGalleryRoute = SiteGalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteEducationRoute = SiteEducationRouteImport.update({
+  id: '/education',
+  path: '/education',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteAdventureRoute = SiteAdventureRouteImport.update({
+  id: '/adventure',
+  path: '/adventure',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteAboutRoute = SiteAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => SiteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof SiteIndexRoute
+  '/about': typeof SiteAboutRoute
+  '/adventure': typeof SiteAdventureRoute
+  '/education': typeof SiteEducationRoute
+  '/gallery': typeof SiteGalleryRoute
+  '/reviews': typeof SiteReviewsRoute
+  '/team': typeof SiteTeamRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/about': typeof SiteAboutRoute
+  '/adventure': typeof SiteAdventureRoute
+  '/education': typeof SiteEducationRoute
+  '/gallery': typeof SiteGalleryRoute
+  '/reviews': typeof SiteReviewsRoute
+  '/team': typeof SiteTeamRoute
+  '/': typeof SiteIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_site': typeof SiteRouteWithChildren
+  '/_site/about': typeof SiteAboutRoute
+  '/_site/adventure': typeof SiteAdventureRoute
+  '/_site/education': typeof SiteEducationRoute
+  '/_site/gallery': typeof SiteGalleryRoute
+  '/_site/reviews': typeof SiteReviewsRoute
+  '/_site/team': typeof SiteTeamRoute
+  '/_site/': typeof SiteIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/adventure'
+    | '/education'
+    | '/gallery'
+    | '/reviews'
+    | '/team'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/about'
+    | '/adventure'
+    | '/education'
+    | '/gallery'
+    | '/reviews'
+    | '/team'
+    | '/'
+  id:
+    | '__root__'
+    | '/_site'
+    | '/_site/about'
+    | '/_site/adventure'
+    | '/_site/education'
+    | '/_site/gallery'
+    | '/_site/reviews'
+    | '/_site/team'
+    | '/_site/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  SiteRoute: typeof SiteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_site': {
+      id: '/_site'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof SiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_site/': {
+      id: '/_site/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof SiteIndexRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/team': {
+      id: '/_site/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof SiteTeamRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/reviews': {
+      id: '/_site/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof SiteReviewsRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/gallery': {
+      id: '/_site/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof SiteGalleryRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/education': {
+      id: '/_site/education'
+      path: '/education'
+      fullPath: '/education'
+      preLoaderRoute: typeof SiteEducationRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/adventure': {
+      id: '/_site/adventure'
+      path: '/adventure'
+      fullPath: '/adventure'
+      preLoaderRoute: typeof SiteAdventureRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/about': {
+      id: '/_site/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof SiteAboutRouteImport
+      parentRoute: typeof SiteRoute
     }
   }
 }
 
+interface SiteRouteChildren {
+  SiteAboutRoute: typeof SiteAboutRoute
+  SiteAdventureRoute: typeof SiteAdventureRoute
+  SiteEducationRoute: typeof SiteEducationRoute
+  SiteGalleryRoute: typeof SiteGalleryRoute
+  SiteReviewsRoute: typeof SiteReviewsRoute
+  SiteTeamRoute: typeof SiteTeamRoute
+  SiteIndexRoute: typeof SiteIndexRoute
+}
+
+const SiteRouteChildren: SiteRouteChildren = {
+  SiteAboutRoute: SiteAboutRoute,
+  SiteAdventureRoute: SiteAdventureRoute,
+  SiteEducationRoute: SiteEducationRoute,
+  SiteGalleryRoute: SiteGalleryRoute,
+  SiteReviewsRoute: SiteReviewsRoute,
+  SiteTeamRoute: SiteTeamRoute,
+  SiteIndexRoute: SiteIndexRoute,
+}
+
+const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  SiteRoute: SiteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
