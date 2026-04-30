@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as Vsf234cfdRouteImport } from './routes/vsf234cfd'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
 import { Route as SiteTeamRouteImport } from './routes/_site.team'
@@ -18,6 +19,11 @@ import { Route as SiteEducationRouteImport } from './routes/_site.education'
 import { Route as SiteAdventureRouteImport } from './routes/_site.adventure'
 import { Route as SiteAboutRouteImport } from './routes/_site.about'
 
+const Vsf234cfdRoute = Vsf234cfdRouteImport.update({
+  id: '/vsf234cfd',
+  path: '/vsf234cfd',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
   getParentRoute: () => rootRouteImport,
@@ -60,6 +66,7 @@ const SiteAboutRoute = SiteAboutRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
+  '/vsf234cfd': typeof Vsf234cfdRoute
   '/about': typeof SiteAboutRoute
   '/adventure': typeof SiteAdventureRoute
   '/education': typeof SiteEducationRoute
@@ -68,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/team': typeof SiteTeamRoute
 }
 export interface FileRoutesByTo {
+  '/vsf234cfd': typeof Vsf234cfdRoute
   '/about': typeof SiteAboutRoute
   '/adventure': typeof SiteAdventureRoute
   '/education': typeof SiteEducationRoute
@@ -79,6 +87,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
+  '/vsf234cfd': typeof Vsf234cfdRoute
   '/_site/about': typeof SiteAboutRoute
   '/_site/adventure': typeof SiteAdventureRoute
   '/_site/education': typeof SiteEducationRoute
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/vsf234cfd'
     | '/about'
     | '/adventure'
     | '/education'
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/team'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/vsf234cfd'
     | '/about'
     | '/adventure'
     | '/education'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_site'
+    | '/vsf234cfd'
     | '/_site/about'
     | '/_site/adventure'
     | '/_site/education'
@@ -120,10 +132,18 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   SiteRoute: typeof SiteRouteWithChildren
+  Vsf234cfdRoute: typeof Vsf234cfdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vsf234cfd': {
+      id: '/vsf234cfd'
+      path: '/vsf234cfd'
+      fullPath: '/vsf234cfd'
+      preLoaderRoute: typeof Vsf234cfdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_site': {
       id: '/_site'
       path: ''
@@ -207,6 +227,7 @@ const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   SiteRoute: SiteRouteWithChildren,
+  Vsf234cfdRoute: Vsf234cfdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
